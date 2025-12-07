@@ -30,6 +30,7 @@
 
     html {
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation; /* Оптимизация для тач-устройств */
     }
 
     body {
@@ -41,8 +42,8 @@
       background-image: 
         radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 55%),
         radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.05) 0%, transparent 55%);
-      /* Увеличиваем отступы для мобильных */
-      padding: 24px 16px;
+      /* Очень большие отступы для мобильных устройств */
+      padding: 32px 20px 48px;
     }
 
     .container {
@@ -56,12 +57,12 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-bottom: 48px; /* Увеличиваем отступ снизу */
-      padding: 0 12px; /* Добавляем горизонтальные отступы */
+      margin-bottom: 56px; /* Увеличиваем отступ снизу */
+      padding: 0 8px; /* Уменьшаем горизонтальные отступы */
     }
 
     .logo {
-      width: 80px; /* Немного увеличиваем для мобильных */
+      width: 80px;
       height: 80px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       border-radius: 20px;
@@ -79,21 +80,21 @@
     }
 
     .header-title {
-      font-size: clamp(28px, 5vw, 42px); /* Увеличиваем для мобильных */
+      font-size: clamp(28px, 5vw, 42px);
       font-weight: 700;
-      margin-bottom: 16px; /* Больше отступ */
+      margin-bottom: 16px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      padding: 0 8px; /* Защита от склеивания с краями */
+      padding: 0 4px;
     }
 
     .header-subtitle {
       font-size: clamp(16px, 3vw, 20px);
       color: var(--text-secondary);
       max-width: 600px;
-      padding: 0 12px; /* Добавляем отступы */
+      padding: 0 8px;
       line-height: 1.6;
     }
 
@@ -101,22 +102,21 @@
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 32px; /* Увеличиваем промежутки между карточками */
-      padding: 0 12px; /* Добавляем горизонтальные отступы */
-      margin-bottom: 60px; /* Отступ снизу перед футером */
+      gap: 32px;
+      margin-bottom: 72px; /* Больше отступ снизу */
     }
 
     @media (min-width: 768px) {
       .features-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 28px; /* Немного меньше на планшетах */
+        gap: 28px;
       }
     }
 
     @media (min-width: 1024px) {
       .features-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 24px; /* Стандартный на десктопах */
+        gap: 24px;
       }
     }
 
@@ -166,10 +166,10 @@
     .preview-container {
       position: relative;
       width: 100%;
-      height: 260px; /* Слегка уменьшаем высоту для мобильных */
+      height: 260px;
       border-radius: var(--radius-sm);
       overflow: hidden;
-      margin-bottom: 24px; /* Больше отступ снизу */
+      margin-bottom: 24px;
       background: #f1f5f9;
       flex-shrink: 0;
     }
@@ -206,7 +206,6 @@
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      padding: 0 4px; /* Небольшие отступы для текста */
     }
 
     .feature-title {
@@ -227,8 +226,7 @@
     /* Footer */
     .footer {
       text-align: center;
-      padding: 48px 20px 32px; /* Увеличиваем верхний отступ */
-      margin-top: 40px;
+      padding: 56px 0 40px;
       border-top: 1px solid var(--border);
     }
 
@@ -238,18 +236,18 @@
       max-width: 600px;
       margin: 0 auto;
       line-height: 1.6;
-      padding: 0 12px; /* Отступы по бокам */
     }
 
     /* Mobile optimizations */
     @media (max-width: 767px) {
       body {
-        padding: 20px 12px 32px; /* Больше отступы на мобильных: сверху 20px, по бокам 12px, снизу 32px */
+        /* Очень большие отступы для удобного свайпа */
+        padding: 28px 16px 56px;
       }
       
       .header {
-        margin-bottom: 40px;
-        padding: 0 8px;
+        margin-bottom: 48px;
+        padding: 0;
       }
       
       .logo {
@@ -264,18 +262,18 @@
       }
       
       .features-grid {
-        padding: 0 4px; /* Меньше горизонтальные отступы */
-        gap: 24px; /* Увеличиваем промежутки между карточками на мобильных */
-        margin-bottom: 48px;
+        gap: 28px; /* Увеличиваем промежутки */
+        margin-bottom: 64px;
       }
       
       .feature-card {
-        padding: 20px 16px; /* Больше внутренние отступы на мобильных */
-        margin-bottom: 4px; /* Дополнительный отступ снизу */
+        padding: 20px 16px;
+        /* Добавляем отступы по бокам для удобного свайпа */
+        margin: 0 4px;
       }
       
       .preview-container {
-        height: 240px; /* Уменьшаем высоту для мобильных */
+        height: 240px;
         margin-bottom: 20px;
       }
       
@@ -290,24 +288,24 @@
       }
       
       .footer {
-        padding: 40px 16px 28px;
-        margin-top: 32px;
+        padding: 48px 0 40px;
       }
       
       .footer-text {
         font-size: 13px;
-        padding: 0 8px;
+        padding: 0 16px;
       }
     }
 
     /* Для очень маленьких экранов */
     @media (max-width: 360px) {
       body {
-        padding: 16px 10px 28px;
+        /* Максимальные отступы для очень маленьких экранов */
+        padding: 24px 12px 48px;
       }
       
       .header {
-        margin-bottom: 32px;
+        margin-bottom: 40px;
       }
       
       .logo {
@@ -322,11 +320,12 @@
       }
       
       .features-grid {
-        gap: 20px;
+        gap: 24px;
       }
       
       .feature-card {
         padding: 16px 14px;
+        margin: 0 2px; /* Меньше боковых отступов для сохранения ширины */
       }
       
       .preview-container {
@@ -340,30 +339,76 @@
       .feature-description {
         font-size: 13px;
       }
+      
+      .footer {
+        padding: 40px 0 32px;
+      }
+    }
+
+    /* Для планшетов */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      body {
+        padding: 28px 24px 48px;
+      }
+      
+      .header {
+        margin-bottom: 48px;
+      }
+      
+      .features-grid {
+        gap: 24px;
+      }
+      
+      .feature-card {
+        margin: 0 4px; /* Отступы по бокам для планшетов */
+      }
     }
 
     /* Touch-friendly improvements */
     .feature-card {
-      -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-      user-select: none; /* Non-prefixed version */
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* Улучшения для свайпа */
+    .feature-card {
+      touch-action: pan-y; /* Разрешаем только вертикальный свайп на карточках */
     }
 
     /* Safe areas for devices with notches */
     @supports (padding: max(0px)) {
       body {
-        padding-left: max(16px, env(safe-area-inset-left));
-        padding-right: max(16px, env(safe-area-inset-right));
-        padding-top: max(24px, env(safe-area-inset-top));
-        padding-bottom: max(24px, env(safe-area-inset-bottom));
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+        padding-top: max(32px, env(safe-area-inset-top));
+        padding-bottom: max(48px, env(safe-area-inset-bottom));
       }
       
       @media (max-width: 767px) {
         body {
+          padding-left: max(16px, env(safe-area-inset-left));
+          padding-right: max(16px, env(safe-area-inset-right));
+          padding-top: max(28px, env(safe-area-inset-top));
+          padding-bottom: max(56px, env(safe-area-inset-bottom));
+        }
+      }
+      
+      @media (max-width: 360px) {
+        body {
           padding-left: max(12px, env(safe-area-inset-left));
           padding-right: max(12px, env(safe-area-inset-right));
-          padding-top: max(20px, env(safe-area-inset-top));
-          padding-bottom: max(32px, env(safe-area-inset-bottom));
+          padding-top: max(24px, env(safe-area-inset-top));
+          padding-bottom: max(48px, env(safe-area-inset-bottom));
+        }
+      }
+      
+      @media (min-width: 768px) and (max-width: 1023px) {
+        body {
+          padding-left: max(24px, env(safe-area-inset-left));
+          padding-right: max(24px, env(safe-area-inset-right));
+          padding-top: max(28px, env(safe-area-inset-top));
+          padding-bottom: max(48px, env(safe-area-inset-bottom));
         }
       }
     }
@@ -508,13 +553,28 @@
           activeCard = card;
         });
         
-        // Для тач-устройств
+        // Для тач-устройств - оптимизированный обработчик
+        let touchStartTime = 0;
+        let touchStartY = 0;
+        
         card.addEventListener('touchstart', function(e) {
-          // Предотвращаем выделение текста при долгом нажатии
-          e.preventDefault();
-          // Для мобильных используем тот же обработчик клика
-          this.click();
+          touchStartTime = Date.now();
+          touchStartY = e.touches[0].clientY;
+          // Предотвращаем выделение текста только при коротком тапе
+          if (Date.now() - touchStartTime < 300) {
+            e.preventDefault();
+          }
         }, { passive: false });
+        
+        card.addEventListener('touchend', function(e) {
+          // Регистрируем как клик только если это был короткий тап без свайпа
+          const touchEndTime = Date.now();
+          const touchEndY = e.changedTouches[0].clientY;
+          
+          if (touchEndTime - touchStartTime < 300 && Math.abs(touchEndY - touchStartY) < 10) {
+            this.click();
+          }
+        });
       });
       
       // Функция активации карточки
@@ -525,7 +585,6 @@
           video.currentTime = 0;
           video.play().catch(e => {
             console.log('Ошибка воспроизведения:', e);
-            // В случае ошибки всё равно оставляем карточку активной
           });
         }
       }
@@ -576,12 +635,12 @@
       // Предотвращаем масштабирование при двойном тапе
       let lastTouchEnd = 0;
       document.addEventListener('touchend', function(event) {
-        const now = (new Date()).getTime();
+        const now = Date.now();
         if (now - lastTouchEnd <= 300) {
           event.preventDefault();
         }
         lastTouchEnd = now;
-      }, false);
+      }, { passive: false });
       
       // Предотвращаем контекстное меню при долгом нажатии на карточки
       cards.forEach(card => {
