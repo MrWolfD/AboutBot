@@ -28,16 +28,21 @@
       box-sizing: border-box;
     }
 
+    html {
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       background: var(--background);
       color: var(--text-primary);
       line-height: 1.5;
       min-height: 100vh;
-      padding: 20px;
       background-image: 
         radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 55%),
         radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.05) 0%, transparent 55%);
+      /* Увеличиваем отступы для мобильных */
+      padding: 24px 16px;
     }
 
     .container {
@@ -51,61 +56,67 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-bottom: 40px;
-      padding: 0 20px;
+      margin-bottom: 48px; /* Увеличиваем отступ снизу */
+      padding: 0 12px; /* Добавляем горизонтальные отступы */
     }
 
     .logo {
-      width: 72px;
-      height: 72px;
+      width: 80px; /* Немного увеличиваем для мобильных */
+      height: 80px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       box-shadow: var(--shadow);
     }
 
     .logo-icon {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       filter: brightness(0) invert(1);
     }
 
     .header-title {
-      font-size: clamp(28px, 4vw, 42px);
+      font-size: clamp(28px, 5vw, 42px); /* Увеличиваем для мобильных */
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 16px; /* Больше отступ */
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      padding: 0 8px; /* Защита от склеивания с краями */
     }
 
     .header-subtitle {
-      font-size: clamp(16px, 2vw, 20px);
+      font-size: clamp(16px, 3vw, 20px);
       color: var(--text-secondary);
       max-width: 600px;
+      padding: 0 12px; /* Добавляем отступы */
+      line-height: 1.6;
     }
 
     /* Grid */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-      padding: 0 20px;
+      gap: 32px; /* Увеличиваем промежутки между карточками */
+      padding: 0 12px; /* Добавляем горизонтальные отступы */
+      margin-bottom: 60px; /* Отступ снизу перед футером */
     }
 
     @media (min-width: 768px) {
       .features-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 28px; /* Немного меньше на планшетах */
       }
     }
 
     @media (min-width: 1024px) {
       .features-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: 24px; /* Стандартный на десктопах */
       }
     }
 
@@ -155,10 +166,10 @@
     .preview-container {
       position: relative;
       width: 100%;
-      height: 280px;
+      height: 260px; /* Слегка уменьшаем высоту для мобильных */
       border-radius: var(--radius-sm);
       overflow: hidden;
-      margin-bottom: 20px;
+      margin-bottom: 24px; /* Больше отступ снизу */
       background: #f1f5f9;
       flex-shrink: 0;
     }
@@ -195,6 +206,7 @@
       flex-grow: 1;
       display: flex;
       flex-direction: column;
+      padding: 0 4px; /* Небольшие отступы для текста */
     }
 
     .feature-title {
@@ -215,8 +227,8 @@
     /* Footer */
     .footer {
       text-align: center;
-      padding: 40px 20px;
-      margin-top: 60px;
+      padding: 48px 20px 32px; /* Увеличиваем верхний отступ */
+      margin-top: 40px;
       border-top: 1px solid var(--border);
     }
 
@@ -225,25 +237,96 @@
       font-size: 14px;
       max-width: 600px;
       margin: 0 auto;
+      line-height: 1.6;
+      padding: 0 12px; /* Отступы по бокам */
     }
 
     /* Mobile optimizations */
     @media (max-width: 767px) {
       body {
-        padding: 12px;
+        padding: 20px 12px 32px; /* Больше отступы на мобильных: сверху 20px, по бокам 12px, снизу 32px */
       }
       
       .header {
-        margin-bottom: 30px;
+        margin-bottom: 40px;
+        padding: 0 8px;
+      }
+      
+      .logo {
+        width: 72px;
+        height: 72px;
+        margin-bottom: 20px;
+      }
+      
+      .logo-icon {
+        width: 36px;
+        height: 36px;
       }
       
       .features-grid {
-        padding: 0;
-        gap: 16px;
+        padding: 0 4px; /* Меньше горизонтальные отступы */
+        gap: 24px; /* Увеличиваем промежутки между карточками на мобильных */
+        margin-bottom: 48px;
       }
       
       .feature-card {
-        padding: 20px;
+        padding: 20px 16px; /* Больше внутренние отступы на мобильных */
+        margin-bottom: 4px; /* Дополнительный отступ снизу */
+      }
+      
+      .preview-container {
+        height: 240px; /* Уменьшаем высоту для мобильных */
+        margin-bottom: 20px;
+      }
+      
+      .feature-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      
+      .feature-description {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      
+      .footer {
+        padding: 40px 16px 28px;
+        margin-top: 32px;
+      }
+      
+      .footer-text {
+        font-size: 13px;
+        padding: 0 8px;
+      }
+    }
+
+    /* Для очень маленьких экранов */
+    @media (max-width: 360px) {
+      body {
+        padding: 16px 10px 28px;
+      }
+      
+      .header {
+        margin-bottom: 32px;
+      }
+      
+      .logo {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 16px;
+      }
+      
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .features-grid {
+        gap: 20px;
+      }
+      
+      .feature-card {
+        padding: 16px 14px;
       }
       
       .preview-container {
@@ -251,7 +334,37 @@
       }
       
       .feature-title {
-        font-size: 18px;
+        font-size: 17px;
+      }
+      
+      .feature-description {
+        font-size: 13px;
+      }
+    }
+
+    /* Touch-friendly improvements */
+    .feature-card {
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      user-select: none; /* Non-prefixed version */
+    }
+
+    /* Safe areas for devices with notches */
+    @supports (padding: max(0px)) {
+      body {
+        padding-left: max(16px, env(safe-area-inset-left));
+        padding-right: max(16px, env(safe-area-inset-right));
+        padding-top: max(24px, env(safe-area-inset-top));
+        padding-bottom: max(24px, env(safe-area-inset-bottom));
+      }
+      
+      @media (max-width: 767px) {
+        body {
+          padding-left: max(12px, env(safe-area-inset-left));
+          padding-right: max(12px, env(safe-area-inset-right));
+          padding-top: max(20px, env(safe-area-inset-top));
+          padding-bottom: max(32px, env(safe-area-inset-bottom));
+        }
       }
     }
   </style>
@@ -397,12 +510,11 @@
         
         // Для тач-устройств
         card.addEventListener('touchstart', function(e) {
-          if (window.innerWidth < 768) {
-            e.preventDefault();
-            // Для мобильных используем тот же обработчик клика
-            this.click();
-          }
-        });
+          // Предотвращаем выделение текста при долгом нажатии
+          e.preventDefault();
+          // Для мобильных используем тот же обработчик клика
+          this.click();
+        }, { passive: false });
       });
       
       // Функция активации карточки
@@ -459,6 +571,24 @@
             }
           });
         }
+      });
+      
+      // Предотвращаем масштабирование при двойном тапе
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function(event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+      
+      // Предотвращаем контекстное меню при долгом нажатии на карточки
+      cards.forEach(card => {
+        card.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+          return false;
+        });
       });
     });
   </script>
