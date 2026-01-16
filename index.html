@@ -162,7 +162,7 @@
       border: 2px solid transparent;
       box-shadow: var(--shadow);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
+      cursor: default;
       position: relative;
       overflow: hidden;
       height: 100%;
@@ -200,43 +200,22 @@
     .preview-container {
       position: relative;
       width: 100%;
-      height: 260px;
+      aspect-ratio: 16/9;
+      height: auto;
       border-radius: var(--radius-sm);
       overflow: hidden;
       margin-bottom: 24px;
       background: #f1f5f9;
       flex-shrink: 0;
     }
-
-    .preview-static {
+.preview-video {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      background: #f1f5f9;
-      transition: opacity 0.3s ease;
-    }
-
-    .preview-video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      display: block;
       background: #f1f5f9;
     }
-
-    .feature-card.active .preview-video {
-      opacity: 1;
-    }
-
-    .feature-card.active .preview-static {
-      opacity: 0;
-    }
-
-    .feature-content {
+.feature-content {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
@@ -307,8 +286,7 @@
       }
       
       .preview-container {
-        height: 240px;
-        margin-bottom: 20px;
+margin-bottom: 20px;
       }
       
       .feature-title {
@@ -363,8 +341,7 @@
       }
       
       .preview-container {
-        height: 220px;
-      }
+}
       
       .feature-title {
         font-size: 17px;
@@ -466,9 +443,8 @@
       <!-- 1 — студийная обработка -->
       <div class="feature-card">
         <div class="preview-container">
-          <img src="static/studio-processing.jpg" alt="Студийная обработка фото" class="preview-static">
-          <video class="preview-video" preload="metadata" muted playsinline loop>
-            <source src="videos/studio-processing.mp4" type="video/mp4">
+<video class="preview-video" preload="metadata" autoplay muted playsinline loop>
+            <source src="videos/studio-processing-720p.mp4" type="video/mp4">
           </video>
         </div>
         <div class="feature-content">
@@ -480,9 +456,8 @@
       <!-- 2 — добавление фона -->
       <div class="feature-card">
         <div class="preview-container">
-          <img src="static/background-add.jpg" alt="Добавление фона" class="preview-static">
-          <video class="preview-video" preload="metadata" muted playsinline loop>
-            <source src="videos/background-add.mp4" type="video/mp4">
+<video class="preview-video" preload="metadata" autoplay muted playsinline loop>
+            <source src="videos/background-add-720p.mp4" type="video/mp4">
           </video>
         </div>
         <div class="feature-content">
@@ -494,9 +469,8 @@
       <!-- 3 — добавление модели -->
       <div class="feature-card">
         <div class="preview-container">
-          <img src="static/model-add.jpg" alt="Добавление модели" class="preview-static">
-          <video class="preview-video" preload="metadata" muted playsinline loop>
-            <source src="videos/model-add.mp4" type="video/mp4">
+<video class="preview-video" preload="metadata" autoplay muted playsinline loop>
+            <source src="videos/model-add-720p.mp4" type="video/mp4">
           </video>
         </div>
         <div class="feature-content">
@@ -505,12 +479,25 @@
         </div>
       </div>
 
+      <!-- 4 — пользовательская генерация -->
+      <div class="feature-card">
+        <div class="preview-container">
+          <video class="preview-video" preload="metadata" autoplay muted playsinline loop>
+            <source src="videos/user-gen-720p.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="feature-content">
+          <h3 class="feature-title">Пользовательская генерация</h3>
+          <p class="feature-description">Пользователь выбирает режим, прикрепляет фото и получает готовый визуал для карточки товара.</p>
+        </div>
+      </div>
+
+
       <!-- 6 — Изменение цвета товара -->
       <div class="feature-card">
         <div class="preview-container">
-          <img src="static/change-color.jpg" alt="Изменение цвета" class="preview-static">
-          <video class="preview-video" preload="metadata" muted playsinline loop>
-            <source src="videos/change-color.mp4" type="video/mp4">
+<video class="preview-video" preload="metadata" autoplay muted playsinline loop>
+            <source src="videos/change-color-720p.mp4" type="video/mp4">
           </video>
         </div>
         <div class="feature-content">
@@ -526,134 +513,12 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const cards = document.querySelectorAll('.feature-card');
-      let activeCard = null;
-      
-      // Инициализируем все видео с паузой
-      cards.forEach(card => {
-        const video = card.querySelector('.preview-video');
-        if (video) {
-          video.pause();
-          video.currentTime = 0;
-        }
-      });
-      
-      // Обработчик клика по карточке
-      cards.forEach(card => {
-        card.addEventListener('click', function(e) {
-          e.stopPropagation();
-          
-          // Если кликнули на уже активную карточку - ничего не делаем
-          if (card === activeCard) {
-            return;
-          }
-          
-          // Деактивируем предыдущую активную карточку
-          if (activeCard) {
-            deactivateCard(activeCard);
-          }
-          
-          // Активируем новую карточку
-          activateCard(card);
-          activeCard = card;
-        });
-        
-        // Для тач-устройств - оптимизированный обработчик
-        let touchStartTime = 0;
-        let touchStartY = 0;
-        
-        card.addEventListener('touchstart', function(e) {
-          touchStartTime = Date.now();
-          touchStartY = e.touches[0].clientY;
-          // Предотвращаем выделение текста только при коротком тапе
-          if (Date.now() - touchStartTime < 300) {
-            e.preventDefault();
-          }
-        }, { passive: false });
-        
-        card.addEventListener('touchend', function(e) {
-          // Регистрируем как клик только если это был короткий тап без свайпа
-          const touchEndTime = Date.now();
-          const touchEndY = e.changedTouches[0].clientY;
-          
-          if (touchEndTime - touchStartTime < 300 && Math.abs(touchEndY - touchStartY) < 10) {
-            this.click();
-          }
-        });
-      });
-      
-      // Функция активации карточки
-      function activateCard(card) {
-        card.classList.add('active');
-        const video = card.querySelector('.preview-video');
-        if (video) {
-          video.currentTime = 0;
-          video.play().catch(e => {
-            console.log('Ошибка воспроизведения:', e);
-          });
-        }
-      }
-      
-      // Функция деактивации карточки
-      function deactivateCard(card) {
-        card.classList.remove('active');
-        const video = card.querySelector('.preview-video');
-        if (video) {
-          video.pause();
-          video.currentTime = 0;
-        }
-      }
-      
-      // Клик по любому месту вне карточек деактивирует все карточки
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('.feature-card')) {
-          if (activeCard) {
-            deactivateCard(activeCard);
-            activeCard = null;
-          }
-        }
-      });
-      
-      // Для мобильных: закрываем видео при тапе вне карточки
-      document.addEventListener('touchstart', function(e) {
-        if (!e.target.closest('.feature-card')) {
-          if (activeCard) {
-            deactivateCard(activeCard);
-            activeCard = null;
-          }
-        }
-      });
-      
-      // Когда видео заканчивается, перезапускаем его если карточка активна
-      cards.forEach(card => {
-        const video = card.querySelector('.preview-video');
-        if (video) {
-          video.addEventListener('ended', function() {
-            if (card.classList.contains('active')) {
-              this.currentTime = 0;
-              this.play().catch(e => console.log('Ошибка перезапуска:', e));
-            }
-          });
-        }
-      });
-      
-      // Предотвращаем масштабирование при двойном тапе
-      let lastTouchEnd = 0;
-      document.addEventListener('touchend', function(event) {
-        const now = Date.now();
-        if (now - lastTouchEnd <= 300) {
-          event.preventDefault();
-        }
-        lastTouchEnd = now;
-      }, { passive: false });
-      
-      // Предотвращаем контекстное меню при долгом нажатии на карточки
-      cards.forEach(card => {
-        card.addEventListener('contextmenu', function(e) {
-          e.preventDefault();
-          return false;
-        });
+    // Автозапуск всех превью-видео при открытии страницы
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.preview-video').forEach(function (v) {
+        try {
+          v.play().catch(function () {});
+        } catch (e) {}
       });
     });
   </script>
