@@ -202,6 +202,7 @@
       width: 100%;
       aspect-ratio: 16/9;
       height: auto;
+      min-height: 220px; /* чуть крупнее превью на десктопе */
       border-radius: var(--radius-sm);
       overflow: hidden;
       margin-bottom: 24px;
@@ -423,6 +424,11 @@ margin-bottom: 20px;
         }
       }
     }
+
+    @media (min-width: 1024px) {
+      .preview-container { min-height: 240px; }
+    }
+
   </style>
 </head>
 <body>
@@ -508,7 +514,7 @@ margin-bottom: 20px;
     </main>
 
     <footer class="footer">
-      <p class="footer-text">Все представленные функции работают на базе искусственного интеллекта. Для получения доступа к полной версии свяжитесь с нашим менеджером.</p>
+      <p class="footer-text">Все представленные функции работают на базе искусственного интеллекта.</p>
     </footer>
   </div>
 
